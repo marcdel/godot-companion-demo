@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4jx4yetjtpl"]
+
+[ext_resource type="Script" path="res://scenes/components/formation_component.gd" id="1_scf2n"]
+
+[node name="FormationComponent" type="Node"]
+script = ExtResource("1_scf2n")

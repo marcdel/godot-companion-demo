@@ -1,0 +1,122 @@
+[gd_scene load_steps=18 format=3 uid="uid://dirf4tvh7vinj"]
+
+[ext_resource type="Texture2D" uid="uid://b2jmt6185wirp" path="res://art/characters/Priest.png" id="1_ntasg"]
+[ext_resource type="Script" path="res://scenes/heroes/priest.gd" id="1_vin1d"]
+[ext_resource type="PackedScene" uid="uid://cpwokae004ryp" path="res://scenes/components/velocity_component.tscn" id="3_mf1rf"]
+[ext_resource type="PackedScene" uid="uid://c4jx4yetjtpl" path="res://scenes/components/formation_component.tscn" id="4_63525"]
+
+[sub_resource type="Animation" id="Animation_ounp3"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_wmhme"]
+resource_name = "walk"
+length = 0.7
+loop_mode = 1
+step = 0.05
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4b8fc"]
+_data = {
+"RESET": SubResource("Animation_ounp3"),
+"walk": SubResource("Animation_wmhme")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cay18"]
+atlas = ExtResource("1_ntasg")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpc6v"]
+atlas = ExtResource("1_ntasg")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nr2df"]
+atlas = ExtResource("1_ntasg")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t1ew5"]
+atlas = ExtResource("1_ntasg")
+region = Rect2(300, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sklpw"]
+atlas = ExtResource("1_ntasg")
+region = Rect2(400, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e1ndg"]
+atlas = ExtResource("1_ntasg")
+region = Rect2(500, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pw832"]
+atlas = ExtResource("1_ntasg")
+region = Rect2(600, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6dqnw"]
+atlas = ExtResource("1_ntasg")
+region = Rect2(700, 100, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tfgmj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cay18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vpc6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nr2df")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t1ew5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sklpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e1ndg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pw832")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6dqnw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6w2y1"]
+radius = 79.0
+height = 160.0
+
+[node name="Priest" type="CharacterBody2D" groups=["companion", "hero"]]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_vin1d")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4b8fc")
+}
+autoplay = "walk"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_tfgmj")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_6w2y1")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_mf1rf")]
+max_speed = 100.0
+
+[node name="FormationComponent" parent="." instance=ExtResource("4_63525")]
+formation_position = 6
+
+[node name="Label" type="Label" parent="."]
+offset_left = -30.0
+offset_top = 30.0
+offset_right = 41.0
+offset_bottom = 53.0
+text = "Angle: 60"

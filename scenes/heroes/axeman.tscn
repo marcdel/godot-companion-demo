@@ -1,0 +1,123 @@
+[gd_scene load_steps=18 format=3 uid="uid://b1woky2tdr8g2"]
+
+[ext_resource type="Script" path="res://scenes/heroes/axeman.gd" id="1_0cx41"]
+[ext_resource type="Texture2D" uid="uid://b61yfanp4so1d" path="res://art/characters/Armored Axeman.png" id="2_2f7vg"]
+[ext_resource type="PackedScene" uid="uid://cpwokae004ryp" path="res://scenes/components/velocity_component.tscn" id="3_v4t5b"]
+[ext_resource type="PackedScene" uid="uid://c4jx4yetjtpl" path="res://scenes/components/formation_component.tscn" id="4_rxti0"]
+
+[sub_resource type="Animation" id="Animation_ounp3"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_wmhme"]
+resource_name = "walk"
+length = 0.7
+loop_mode = 1
+step = 0.05
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4b8fc"]
+_data = {
+"RESET": SubResource("Animation_ounp3"),
+"walk": SubResource("Animation_wmhme")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c0u1n"]
+atlas = ExtResource("2_2f7vg")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1spu"]
+atlas = ExtResource("2_2f7vg")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ra7r1"]
+atlas = ExtResource("2_2f7vg")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2aqe"]
+atlas = ExtResource("2_2f7vg")
+region = Rect2(300, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4g2je"]
+atlas = ExtResource("2_2f7vg")
+region = Rect2(400, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aywl3"]
+atlas = ExtResource("2_2f7vg")
+region = Rect2(500, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8gp15"]
+atlas = ExtResource("2_2f7vg")
+region = Rect2(600, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gd868"]
+atlas = ExtResource("2_2f7vg")
+region = Rect2(700, 100, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tfgmj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c0u1n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1spu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ra7r1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h2aqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4g2je")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aywl3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8gp15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gd868")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6w2y1"]
+radius = 80.0
+height = 172.0
+
+[node name="Axeman" type="CharacterBody2D" groups=["companion", "hero"]]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_0cx41")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4b8fc")
+}
+autoplay = "walk"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_tfgmj")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_6w2y1")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_v4t5b")]
+max_speed = 100.0
+acceleration = 4.0
+
+[node name="FormationComponent" parent="." instance=ExtResource("4_rxti0")]
+formation_position = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = -30.0
+offset_top = 30.0
+offset_right = 41.0
+offset_bottom = 53.0
+text = "Angle: 60"

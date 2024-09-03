@@ -1,0 +1,112 @@
+[gd_scene load_steps=17 format=3 uid="uid://fvw0v0lo17ga"]
+
+[ext_resource type="Texture2D" uid="uid://fvvohb1b4tdm" path="res://art/characters/Knight.png" id="1_pa67f"]
+[ext_resource type="Script" path="res://scenes/heroes/player.gd" id="1_w81hj"]
+[ext_resource type="PackedScene" uid="uid://cpwokae004ryp" path="res://scenes/components/velocity_component.tscn" id="3_3uifg"]
+
+[sub_resource type="Animation" id="Animation_ounp3"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_wmhme"]
+resource_name = "walk"
+length = 0.7
+loop_mode = 1
+step = 0.05
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4b8fc"]
+_data = {
+"RESET": SubResource("Animation_ounp3"),
+"walk": SubResource("Animation_wmhme")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xjne0"]
+atlas = ExtResource("1_pa67f")
+region = Rect2(0, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w24af"]
+atlas = ExtResource("1_pa67f")
+region = Rect2(100, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jo6ph"]
+atlas = ExtResource("1_pa67f")
+region = Rect2(200, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntypo"]
+atlas = ExtResource("1_pa67f")
+region = Rect2(300, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xiyun"]
+atlas = ExtResource("1_pa67f")
+region = Rect2(400, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8n28"]
+atlas = ExtResource("1_pa67f")
+region = Rect2(500, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aduad"]
+atlas = ExtResource("1_pa67f")
+region = Rect2(600, 100, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l8ms3"]
+atlas = ExtResource("1_pa67f")
+region = Rect2(700, 100, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tfgmj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xjne0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w24af")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo6ph")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntypo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xiyun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8n28")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aduad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l8ms3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6w2y1"]
+radius = 4.0
+height = 10.0
+
+[node name="Player" type="CharacterBody2D" groups=["hero", "player"]]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_w81hj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4b8fc")
+}
+autoplay = "walk"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_tfgmj")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_6w2y1")
+
+[node name="VelocityComponent" parent="." instance=ExtResource("3_3uifg")]
+max_speed = 150.0
+acceleration = 10.0
